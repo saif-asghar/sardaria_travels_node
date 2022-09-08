@@ -2,8 +2,8 @@ const checked = document.querySelectorAll(".btn");
 const returnDate = document.getElementById("returningDate");
 const roundTrip = document.getElementById("roundTrip");
 const oneWay = document.getElementById("oneWay");
-const multiCity = document.getElementById("multiCity");
-const multiCityBox = document.querySelector(".booking-form2");
+// const multiCity = document.getElementById("multiCity");
+// const multiCityBox = document.querySelector(".booking-form2");
 const otherBoxes = document.querySelector(".booking-form");
 const boxesSizes = document.getElementById("boxesSizes");
 const addFlight = document.getElementById("addFlight");
@@ -215,15 +215,15 @@ function changeBoxesForOneway() {
   returnDate.style.border = "1px solid gray";
 }
 
-multiCity.addEventListener("click", changeBoxesForMulticity);
+// multiCity.addEventListener("click", changeBoxesForMulticity);
 
-function changeBoxesForMulticity() {
-  multiCityBox.setAttribute("style", "display: block;");
-  otherBoxes.setAttribute("style", "display: none;");
-  // boxesSizes.setAttribute("style", "width: 50%;");
-  hotelBookingForm.setAttribute("style", "display: none;");
-  radioBtn.removeAttribute("style");
-}
+// function changeBoxesForMulticity() {
+//   multiCityBox.setAttribute("style", "display: block;");
+//   otherBoxes.setAttribute("style", "display: none;");
+//   // boxesSizes.setAttribute("style", "width: 50%;");
+//   hotelBookingForm.setAttribute("style", "display: none;");
+//   radioBtn.removeAttribute("style");
+// }
 
 // hotels.addEventListener("click", changeBoxesForHotels);
 
@@ -242,43 +242,43 @@ function changeBoxesForMulticity() {
 // }
 
 
-function addRemFlightsForm() {
+// function addRemFlightsForm() {
   
-  let addedFlights = document.getElementById('addedFlights');
+//   let addedFlights = document.getElementById('addedFlights');
   
-  let div = document.createElement('div');
-  div.innerHTML = `
-    <div class='for-removing'>
-    <div class="input-grp2">
-        <label>Flying From</label>
-        <input type="text" placeholder="City or Airport" class="form-control">
-    </div>
-    <div class="input-grp2">
-        <label>Flying To</label>
-        <input type="text" placeholder="City or Airport" class="form-control">
-    </div>
-    <div class="input-grp2">
-        <label>Departing</label>
-        <input type="date" class="todaysDate2 select-date form-control">
-        </div>
-    <a style="text-decoration: none; color: #fff; font-size: 20px;" class="remove" href="javascript:void(0)">x</a>
-    </div>
-  `;
+//   let div = document.createElement('div');
+//   div.innerHTML = `
+//     <div class='for-removing'>
+//     <div class="input-grp2">
+//         <label>Flying From</label>
+//         <input type="text" placeholder="City or Airport" class="form-control">
+//     </div>
+//     <div class="input-grp2">
+//         <label>Flying To</label>
+//         <input type="text" placeholder="City or Airport" class="form-control">
+//     </div>
+//     <div class="input-grp2">
+//         <label>Departing</label>
+//         <input type="date" class="todaysDate2 select-date form-control">
+//         </div>
+//     <a style="text-decoration: none; color: #fff; font-size: 20px;" class="remove" href="javascript:void(0)">x</a>
+//     </div>
+//   `;
   
-  addedFlights.appendChild(div);
+//   addedFlights.appendChild(div);
 
   
-  let removeDivs = document.querySelector('ul');
-  removeDivs.addEventListener('click', function(e){
-    let addedFlights = document.getElementById('addedFlights');
-    let div = document.querySelector('a');
-    div = (e.target.parentNode).parentNode;
-    console.log(div);
-    addedFlights.removeChild(div);
+//   let removeDivs = document.querySelector('ul');
+//   removeDivs.addEventListener('click', function(e){
+//     let addedFlights = document.getElementById('addedFlights');
+//     let div = document.querySelector('a');
+//     div = (e.target.parentNode).parentNode;
+//     console.log(div);
+//     addedFlights.removeChild(div);
 
-  });
+//   });
       
-  };
+//   };
 
 
 

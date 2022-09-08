@@ -1400,70 +1400,7 @@ req.end();
 
 
 
-// app.post('/seats', function(req, res){
-//   const idOfOffer = req.body.idOfOffer;
-//   // console.log(idOfOffer);
-//   // const em2 = req.body.emailForCheckout;
-//   // https://api.duffel.com/air/seat_maps?offer_id=off_0000ANItzqILfR94neM1O4
-  
 
-
-
-
-
-//   var options = 
-//   {
-//     'method': 'GET',
-//     'hostname': 'api.duffel.com',
-//     'path': `/air/seat_maps?offer_id=${idOfOffer}`,
-//     'headers': {
-//       'Authorization':
-//         "Bearer duffel_test_D9M5y5YkDFZ6zasjspan-yRFsydrWA7u9oN9W2GarYB",
-//       'Accept': "application/json",
-//       "Content-Type": "application/json",
-//       "Duffel-Version": "beta",
-//     },
-//     'maxRedirects': 20
-//   };
-  
-  
-   
-//   var req = https.request(options, function (response1) {
-//     var chunks = [];
-   
-//     response1.on("data", function (chunk) {
-//       chunks.push(chunk);
-//     });
-   
-//     response1.on("end", function (chunk) {
-//       var body = Buffer.concat(chunks);
-//       let body1 = body.toString();
-//       let body2 = JSON.parse(body1);
-
-//       console.log(body2);
-
-//       res.render('checkoutRoundTrip');
-
-
-//         });
-        
-//         response1.on("error", function (error) {
-//         console.error(error);
-//       });
-//     });
-    
-    
-    
-    
-    
-//     req.end();
-    
-
-
-
-
-
-// });
 
 
 
@@ -1498,16 +1435,41 @@ app.post('/checkoutOW', function(req, res){
    
     response.on("end", function (chunk) {
       var body = Buffer.concat(chunks);
-      const body1 = body.toString();
-      const body2 = JSON.stringify(body1);
+      let body1 = body.toString();
+      let body2 = JSON.parse(body1);
+
       console.log(body2);
 
-      res.render('checkoutOneWay', {
-        idOfOffer: idOfOffer,
-        em2: em2,
-      });
-
-    });
+      Identification.findOne({email: em2}, function(err, foundUser){
+        if(err){
+          console.log(err)
+        }else{
+            if(foundUser){
+              
+              
+                const signUpfName = foundUser.fname;
+                const signUplName = foundUser.lname;
+              //  console.log(foundUser);
+              
+              
+              
+                
+                res.render("checkoutOneWay", {
+                  signUpfName: signUpfName,
+                  signUplName: signUplName,
+                  idOfOffer: idOfOffer,
+                  em2: em2,
+                  body2: body2
+                });
+                
+                
+              }else{
+                console.log('user not found. Impossible!');
+              }
+            }
+          });
+        });
+        
    
     response.on("error", function (error) {
       console.error(error);
@@ -1560,7 +1522,7 @@ if (clientPhoneNo === "") {
   });
   email.save();
 }
-res.redirect('/home');
+res.render('successNewsletter');
 
 });
 

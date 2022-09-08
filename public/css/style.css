@@ -2459,6 +2459,45 @@ ul button a .icon img {
   padding: 0 250px;
 }
 
+@media (max-width: 992px){
+ 
+  .checkout-main{
+    padding: 0 200px;
+  }
+  
+}
+@media (max-width: 820px){
+ 
+  .checkout-main{
+    padding: 0 150px;
+  }
+  
+}
+@media (max-width: 724px){
+ 
+  .checkout-main{
+    padding: 0 100px;
+  }
+  
+}
+@media (max-width: 620px){
+ 
+  .checkout-main{
+    padding: 0 50px;
+  }
+  
+}
+@media (max-width: 434px){
+ 
+  .checkout-main{
+    padding: 10px;
+  }
+  
+}
+
+
+
+
 .hiddenDplay2{
   display: none;
 }
