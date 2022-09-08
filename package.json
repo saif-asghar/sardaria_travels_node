@@ -1,0 +1,30 @@
+{
+  "name": "sardaria-tours-n-travels",
+  "version": "1.0.0",
+  "description": "\"Tours and travel official ticket booking website\"",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Saif",
+  "license": "ISC",
+  "dependencies": {
+    "@duffel/api": "^1.14.2",
+    "airport-autocomplete-js": "^2.1.4",
+    "async": "^3.2.4",
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.2",
+    "duffel": "^0.0.2",
+    "ejs": "^3.1.8",
+    "eslint-plugin-prettier": "^4.2.1",
+    "express": "^4.18.1",
+    "fuse.js": "^6.6.2",
+    "heroku": "^7.62.0",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
+    "mongodb": "^4.9.0",
+    "mongoose": "^6.5.2",
+    "mongoose-encryption": "^2.1.2",
+    "nodemon": "^2.0.19"
+  }
+}
