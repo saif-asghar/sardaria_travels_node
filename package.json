@@ -1,6 +1,9 @@
 {
   "name": "sardaria-tours-n-travels",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.x"
+  },
   "description": "\"Tours and travel official ticket booking website\"",
   "main": "api.js",
   "scripts": {
