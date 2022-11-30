@@ -94,6 +94,18 @@ app.get("/", function (req, res) {
 
 
 
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                   5. { Get Request Login & Signup Page (Display Login Page On Home Route) Start }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+app.get("/loginPage", function (req, res) {
+  res.render("user/loginSignUp");
+});
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                    5. { Get Request Login & Signup Page (Display Login Page On Home Route) END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+
 
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                  6. { Post Request to Save Signup Info to MongoDB Atlas and Log Into Home Page START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -115,7 +127,7 @@ app.post('/signup', function(req, res){
     if(err){
       console.log(err);
     }else{
-      res.render('home', {signUpfName: signUpfName, signUplName: signUplName, signUpEmail: signUpEmail});
+      res.render('user/home', {signUpfName: signUpfName, signUplName: signUplName, signUpEmail: signUpEmail});
     };
   });
 });
@@ -147,7 +159,7 @@ app.post('/login', function(req, res){
             const signUplName = foundUser.lname;
             const signUpEmail = loginEmail;
 
-            res.render('home', {
+            res.render('user/home', {
               signUpfName: signUpfName,
               signUplName: signUplName,
               signUpEmail: signUpEmail
@@ -174,358 +186,356 @@ app.post('/login', function(req, res){
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            8. { Home Page to Make Post Requests to Recieve Data From Duffel (HTTPS Method) START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-// app.post("/home", function (req, res) {
+app.post("/home", function (req, res) {
   
 
-//   let fromRoundTrip = req.body.fromRoundTrip.slice(0, 3);
-//   let toRoundTrip = req.body.toRoundTrip.slice(0, 3);
-//   let departingDateRoundTrip = req.body.departingDateRoundTrip;
-//   let returnDateRoundTrip = req.body.returnDateRoundTrip;
-//   let adults = Number(req.body.adults);
-//   let checkRadioBtn = req.body.group1;
-//   let numberOfChildren = Number(req.body.children);
-//   let cabinClass = req.body.cabinClasses;
-//   const returnData = 'Return';
+  let fromRoundTrip = req.body.fromRoundTrip.slice(0, 3);
+  let toRoundTrip = req.body.toRoundTrip.slice(0, 3);
+  let departingDateRoundTrip = req.body.departingDateRoundTrip;
+  let returnDateRoundTrip = req.body.returnDateRoundTrip;
+  let adults = Number(req.body.adults);
+  let checkRadioBtn = req.body.group1;
+  let numberOfChildren = Number(req.body.children);
+  let cabinClass = req.body.cabinClasses;
+  const returnData = 'Return';
   
-//   const em = req.body.signUpEmail;
+  const em = req.body.signUpEmail;
   
   
 
-//   // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                         8(1). { Post Request To Duffel (Round Trip, One Way & Multi City) START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                         8(1). { Post Request To Duffel (Round Trip, One Way & Multi City) START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-// //                                     IF ROUND TRIP IS SELECTED
+//                                     IF ROUND TRIP IS SELECTED
 
-//   if (checkRadioBtn === 'roundTrip') {
+  if (checkRadioBtn === 'roundTrip') {
 
-// //                              IF NO. OF CHILDREN IS 0 INSIDE ROUND TRIP
+//                              IF NO. OF CHILDREN IS 0 INSIDE ROUND TRIP
 
-//     if (numberOfChildren === 0) {
+    if (numberOfChildren === 0) {
       
-// //                               IF NO. OF ADULTS IS 1 INSIDE ROUND TRIP
+//                               IF NO. OF ADULTS IS 1 INSIDE ROUND TRIP
 
-//       if (adults === 1) { 
+      if (adults === 1) { 
        
-//        var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   },
-//                   {
-//                       "origin": "ATL",
-//                       "destination": "NYC",
-//                       "departure_date": "2022-09-10"
-//                   }
-//               ],
-//               "passengers": [
-//                   {
-//                       "type": "adult"
-//                   }
-//               ],
-//               "cabin_class": "business"
-//           }
-//       };
+       var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  },
+                  {
+                      "origin": "ATL",
+                      "destination": "NYC",
+                      "departure_date": "2022-09-10"
+                  }
+              ],
+              "passengers": [
+                  {
+                      "type": "adult"
+                  }
+              ],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
-//       postData.data.slices[1].origin = toRoundTrip;
-//       postData.data.slices[1].destination = fromRoundTrip;
-//       postData.data.slices[1].departure_date = returnDateRoundTrip;
-//       postData.data.cabin_class = cabinClass;
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[1].origin = toRoundTrip;
+      postData.data.slices[1].destination = fromRoundTrip;
+      postData.data.slices[1].departure_date = returnDateRoundTrip;
+      postData.data.cabin_class = cabinClass;
 
 
 
-//       }
+      }
       
-// //                              ELSE NO. OF ADULTS IS 1+ INSIDE ROUND TRIP
+//                              ELSE NO. OF ADULTS IS 1+ INSIDE ROUND TRIP
 
-//       else {
-//         let adultsStringMore = [];
-//         for (i = 0; i < adults + 1 ; i++) {
-//           adultsStringMore.push({
-//             "type": "adult"
-//         },);
-//         };
-//         adultsStringMore = adultsStringMore.slice(0, -1);
-//         // adultsStringMore =  JSON.parse(adultsStringMore);
-//         // console.log(adultsStringMore);
+      else {
+        let adultsStringMore = [];
+        for (i = 0; i < adults + 1 ; i++) {
+          adultsStringMore.push({
+            "type": "adult"
+        },);
+        };
+        adultsStringMore = adultsStringMore.slice(0, -1);
+        // adultsStringMore =  JSON.parse(adultsStringMore);
+        // console.log(adultsStringMore);
 
         
 
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   },
-//                   {
-//                       "origin": "ATL",
-//                       "destination": "NYC",
-//                       "departure_date": "2022-09-10"
-//                   }
-//               ],
-//               "passengers": [],
-//               "cabin_class": "business"
-//           }
-//       };
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  },
+                  {
+                      "origin": "ATL",
+                      "destination": "NYC",
+                      "departure_date": "2022-09-10"
+                  }
+              ],
+              "passengers": [],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
-//       postData.data.slices[1].origin = toRoundTrip;
-//       postData.data.slices[1].destination = fromRoundTrip;
-//       postData.data.slices[1].departure_date = returnDateRoundTrip;
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers = adultsStringMore;
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[1].origin = toRoundTrip;
+      postData.data.slices[1].destination = fromRoundTrip;
+      postData.data.slices[1].departure_date = returnDateRoundTrip;
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers = adultsStringMore;
      
 
-//       }
-//     } 
+      }
+    } 
 
-// //                             ELSE IF NO. OF CHILDREN IS 1 INSIDE ROUND TRIP
+//                             ELSE IF NO. OF CHILDREN IS 1 INSIDE ROUND TRIP
 
-//   else if (numberOfChildren === 1) {
+  else if (numberOfChildren === 1) {
 
-//       let childAge = req.body.childAge1;
-//       // console.log(childAge);
+      let childAge = req.body.childAge1;
+      // console.log(childAge);
 
-// //                               IF NO. OF ADULTS IS 1 INSIDE ROUND TRIP
+//                               IF NO. OF ADULTS IS 1 INSIDE ROUND TRIP
 
-//       if (adults === 1) {
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   },
-//                   {
-//                       "origin": "ATL",
-//                       "destination": "NYC",
-//                       "departure_date": "2022-09-10"
-//                   }
-//               ],
-//               "passengers": [
-//                   {
-//                       "type": "adult"
-//                   },
-//                   {
-//                       "age": ""
-//                   }
-//               ],
-//               "cabin_class": "business"
-//           }
-//       };
+      if (adults === 1) {
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  },
+                  {
+                      "origin": "ATL",
+                      "destination": "NYC",
+                      "departure_date": "2022-09-10"
+                  }
+              ],
+              "passengers": [
+                  {
+                      "type": "adult"
+                  },
+                  {
+                      "age": ""
+                  }
+              ],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
-//       postData.data.slices[1].origin = toRoundTrip;
-//       postData.data.slices[1].destination = fromRoundTrip;
-//       postData.data.slices[1].departure_date = returnDateRoundTrip;
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers[1].age = childAge;
-//       // console.log(postData.data.passengers);S
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[1].origin = toRoundTrip;
+      postData.data.slices[1].destination = fromRoundTrip;
+      postData.data.slices[1].departure_date = returnDateRoundTrip;
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers[1].age = childAge;
+      // console.log(postData.data.passengers);S
 
     
-//       } 
+      } 
       
-// //                              ELSE NO. OF ADULTS IS 1+ INSIDE ROUND TRIP
+//                              ELSE NO. OF ADULTS IS 1+ INSIDE ROUND TRIP
       
-//       else {
+      else {
         
         
         
-//         let adultsStringMore = [];
-//         adultsStringMore.push({
-//             "age": ""
-//         });
-//         adultsStringMore[0].age = childAge;
+        let adultsStringMore = [];
+        adultsStringMore.push({
+            "age": ""
+        });
+        adultsStringMore[0].age = childAge;
 
-//         for (i = 0; i < adults ; i++) {
-//           adultsStringMore.push({
-//             "type": "adult"
-//         },);
-//         };
-//         // adultsStringMore = adultsStringMore.slice(0, -1);
-//         // adultsStringMore =  JSON.parse(adultsStringMore);
-//         // console.log(adultsStringMore);
+        for (i = 0; i < adults ; i++) {
+          adultsStringMore.push({
+            "type": "adult"
+        },);
+        };
+        // adultsStringMore = adultsStringMore.slice(0, -1);
+        // adultsStringMore =  JSON.parse(adultsStringMore);
+        // console.log(adultsStringMore);
 
         
 
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   },
-//                   {
-//                       "origin": "ATL",
-//                       "destination": "NYC",
-//                       "departure_date": "2022-09-10"
-//                   }
-//               ],
-//               "passengers": [],
-//               "cabin_class": "business"
-//           }
-//       };
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  },
+                  {
+                      "origin": "ATL",
+                      "destination": "NYC",
+                      "departure_date": "2022-09-10"
+                  }
+              ],
+              "passengers": [],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
-//       postData.data.slices[1].origin = toRoundTrip;
-//       postData.data.slices[1].destination = fromRoundTrip;
-//       postData.data.slices[1].departure_date = returnDateRoundTrip;
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers = adultsStringMore;
-//       // console.log(postData.data.passengers);
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[1].origin = toRoundTrip;
+      postData.data.slices[1].destination = fromRoundTrip;
+      postData.data.slices[1].departure_date = returnDateRoundTrip;
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers = adultsStringMore;
+      // console.log(postData.data.passengers);
 
     
-//       }
-//     }
+      }
+    }
 
-// //                             ELSE NO. OF CHILDREN IS 1+ INSIDE ROUND TRIP
+//                             ELSE NO. OF CHILDREN IS 1+ INSIDE ROUND TRIP
 
-//    else {
+   else {
     
-//     let age = [req.body.childAge1, req.body.childAge2, req.body.childAge3, req.body.childAge4, req.body.childAge5, req.body.childAge6, req.body.childAge7, req.body.childAge8, req.body.childAge9];
+    let age = [req.body.childAge1, req.body.childAge2, req.body.childAge3, req.body.childAge4, req.body.childAge5, req.body.childAge6, req.body.childAge7, req.body.childAge8, req.body.childAge9];
     
-// //                               IF NO. OF ADULTS IS 1 INSIDE ROUND TRIP
+//                               IF NO. OF ADULTS IS 1 INSIDE ROUND TRIP
 
-//      if (adults === 1) {
+     if (adults === 1) {
         
    
-//         let childrenStringMore = [];
+        let childrenStringMore = [];
    
-//         childrenStringMore.push({
-//           "type": "adult"
-//         },);
+        childrenStringMore.push({
+          "type": "adult"
+        },);
    
-//         for (i = 0; i < numberOfChildren; i++) {
+        for (i = 0; i < numberOfChildren; i++) {
    
-//           childrenStringMore.push({
-//             "age": ""
-//           },)
+          childrenStringMore.push({
+            "age": ""
+          },)
    
-//           childrenStringMore[i + 1].age = age[i];
+          childrenStringMore[i + 1].age = age[i];
    
-//         }
+        }
    
-//         // childrenStringMore = childrenStringMore.slice(0, -1);
-//         console.log(childrenStringMore);
+        // childrenStringMore = childrenStringMore.slice(0, -1);
+        console.log(childrenStringMore);
 
 
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   },
-//                   {
-//                       "origin": "ATL",
-//                       "destination": "NYC",
-//                       "departure_date": "2022-09-10"
-//                   }
-//               ],
-//               "passengers": [],
-//               "cabin_class": "business"
-//           }
-//       };
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  },
+                  {
+                      "origin": "ATL",
+                      "destination": "NYC",
+                      "departure_date": "2022-09-10"
+                  }
+              ],
+              "passengers": [],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
-//       postData.data.slices[1].origin = toRoundTrip;
-//       postData.data.slices[1].destination = fromRoundTrip;
-//       postData.data.slices[1].departure_date = returnDateRoundTrip;
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers = childrenStringMore;
-//       // console.log(postData);
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[1].origin = toRoundTrip;
+      postData.data.slices[1].destination = fromRoundTrip;
+      postData.data.slices[1].departure_date = returnDateRoundTrip;
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers = childrenStringMore;
+      // console.log(postData);
  
-//       }
+      }
       
-// //                               IF NO. OF ADULTS IS 1+ INSIDE ROUND TRIP
+//                               IF NO. OF ADULTS IS 1+ INSIDE ROUND TRIP
 
-//       else {
+      else {
         
         
       
 
-//       let childrenStringMore = [];
+      let childrenStringMore = [];
 
 
-//       for (i = 0; i < numberOfChildren; i++) {
+      for (i = 0; i < numberOfChildren; i++) {
 
-//         childrenStringMore.push({
-//           "age": ""
-//         },)
+        childrenStringMore.push({
+          "age": ""
+        },)
 
-//         childrenStringMore[i].age = age[i];
+        childrenStringMore[i].age = age[i];
 
-//       }
+      }
 
-//       // childrenStringMore = childrenStringMore.slice(0, -1);
-//       // console.log(childrenStringMore);
+      // childrenStringMore = childrenStringMore.slice(0, -1);
+      // console.log(childrenStringMore);
 
-//         let adultsStringMore = [];
+        let adultsStringMore = [];
         
 
-//         for (i = 0; i < adults ; i++) {
-//           adultsStringMore.push({
-//             "type": "adult"
-//         },);
-//         };
-//         // adultsStringMore = adultsStringMore.slice(0, -1);
-//         // adultsStringMore =  JSON.parse(adultsStringMore);
-//         // console.log(adultsStringMore);
+        for (i = 0; i < adults ; i++) {
+          adultsStringMore.push({
+            "type": "adult"
+        },);
+        };
+        // adultsStringMore = adultsStringMore.slice(0, -1);
+        // adultsStringMore =  JSON.parse(adultsStringMore);
+        // console.log(adultsStringMore);
 
-//         let concattedArrays = adultsStringMore.concat(childrenStringMore);
-//         // console.log(concattedArrays);
+        let concattedArrays = adultsStringMore.concat(childrenStringMore);
+        // console.log(concattedArrays);
 
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   },
-//                   {
-//                       "origin": "ATL",
-//                       "destination": "NYC",
-//                       "departure_date": "2022-09-10"
-//                   }
-//               ],
-//               "passengers": [],
-//               "cabin_class": "business"
-//           }
-//       };
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  },
+                  {
+                      "origin": "ATL",
+                      "destination": "NYC",
+                      "departure_date": "2022-09-10"
+                  }
+              ],
+              "passengers": [],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
-//       postData.data.slices[1].origin = toRoundTrip;
-//       postData.data.slices[1].destination = fromRoundTrip;
-//       postData.data.slices[1].departure_date = returnDateRoundTrip;
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers = concattedArrays;
-//       // console.log(postData.data.passengers);
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[1].origin = toRoundTrip;
+      postData.data.slices[1].destination = fromRoundTrip;
+      postData.data.slices[1].departure_date = returnDateRoundTrip;
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers = concattedArrays;
+      // console.log(postData.data.passengers);
  
-//       }
+      }
 
-//     };
-
-
+    };
 
 
 
@@ -534,375 +544,375 @@ app.post('/login', function(req, res){
 
 
 
-// // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                               8(1.1) { Post Request HTTPS Method for Round Trip START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                               8(1.1) { Post Request HTTPS Method for Round Trip START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     
-// var options = {
-//   method: "POST",
-//   hostname: "api.duffel.com",
-//   path: "/air/offer_requests?return_offers=true",
-//   'headers': {
-//     'Authorization':
-//       `Bearer ${process.env.DUFFEL_TEST_TOKEN}`,
-//     'Accept': "application/json",
-//     "Content-Type": "application/json",
-//     "Duffel-Version": "beta",
-//   },
-//   maxRedirects: 20,
-// };
-// var req = https.request(options, function (response) {
-//   var chunks = [];
+var options = {
+  method: "POST",
+  hostname: "api.duffel.com",
+  path: "/air/offer_requests?return_offers=true",
+  'headers': {
+    'Authorization':
+      `Bearer ${process.env.DUFFEL_TEST_TOKEN}`,
+    'Accept': "application/json",
+    "Content-Type": "application/json",
+    "Duffel-Version": "beta",
+  },
+  maxRedirects: 20,
+};
+var req = https.request(options, function (response) {
+  var chunks = [];
 
-//   response.on("data", function (chunk) {
-//     chunks.push(chunk);
-//   });
+  response.on("data", function (chunk) {
+    chunks.push(chunk);
+  });
 
-//   response.on("end", function (chunk) {
-//     var body = Buffer.concat(chunks);
-//     let body1 = body.toString();
-//     let body2 = JSON.parse(body1);
-//     // console.log(body1);
-//     // const offers = body2.data.offers;
-//     console.log(body2);
-
-
+  response.on("end", function (chunk) {
+    var body = Buffer.concat(chunks);
+    let body1 = body.toString();
+    let body2 = JSON.parse(body1);
+    // console.log(body1);
+    // const offers = body2.data.offers;
+    console.log(body2);
 
 
-//     Identification.findOne({email: em}, function(err, foundUser){
-//       if(err){
-//         console.log(err)
-//       }else{
-//           if(foundUser){
+
+
+    Identification.findOne({email: em}, function(err, foundUser){
+      if(err){
+        console.log(err)
+      }else{
+          if(foundUser){
             
   
-//               const signUpfName = foundUser.fname;
-//               const signUplName = foundUser.lname;
+              const signUpfName = foundUser.fname;
+              const signUplName = foundUser.lname;
               
   
-//               res.render("info", {
-//                 signUpfName: signUpfName,
-//                 signUplName: signUplName,
-//                 body2: body2,
-//                 departingDateRoundTrip: departingDateRoundTrip,
-//                 returnDateRoundTrip: returnDateRoundTrip,
-//                 returnData: returnData,
-//                 em: em,
-//                 fromRoundTrip: fromRoundTrip,
-//                 toRoundTrip: toRoundTrip,
-//               });
+              res.render("user/info", {
+                signUpfName: signUpfName,
+                signUplName: signUplName,
+                body2: body2,
+                departingDateRoundTrip: departingDateRoundTrip,
+                returnDateRoundTrip: returnDateRoundTrip,
+                returnData: returnData,
+                em: em,
+                fromRoundTrip: fromRoundTrip,
+                toRoundTrip: toRoundTrip,
+              });
               
             
-//           }else{
-//             console.log('user not found. Impossible!');
-//           }
-//         }
-//       });
-//   });
+          }else{
+            console.log('user not found. Impossible!');
+          }
+        }
+      });
+  });
 
-//   response.on("error", function (error) {
-//     console.error(error);
-//     let error2 = error;
-//     res.redirect('error', {error2: error2});
-//   });
-// });
-// postData = JSON.stringify(postData);
-// req.write(postData);
-// req.end();
+  response.on("error", function (error) {
+    console.error(error);
+    let error2 = error;
+    res.redirect('error', {error2: error2});
+  });
+});
+postData = JSON.stringify(postData);
+req.write(postData);
+req.end();
 
-// // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                               8(1.1) { Post Request HTTPS Method for Round Trip END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                               8(1.1) { Post Request HTTPS Method for Round Trip END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-// }
+}
 
 
-// //                                    ELSE IF ONE WAY IS SELECTED  
-//   else if(checkRadioBtn === 'oneWay') {
+//                                    ELSE IF ONE WAY IS SELECTED  
+  else if(checkRadioBtn === 'oneWay') {
 
-// //                              IF NO. OF CHILDREN IS 0 INSIDE ONE WAY
+//                              IF NO. OF CHILDREN IS 0 INSIDE ONE WAY
    
-//     if (numberOfChildren === 0) {
+    if (numberOfChildren === 0) {
       
-// //                               IF NO. OF ADULTS IS 1 INSIDE ONE WAY
+//                               IF NO. OF ADULTS IS 1 INSIDE ONE WAY
       
-//       if (adults === 1) { 
+      if (adults === 1) { 
        
-//        var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   }
-//               ],
-//               "passengers": [
-//                   {
-//                       "type": "adult"
-//                   }
-//               ],
-//               "cabin_class": "business"
-//           }
-//       };
+       var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  }
+              ],
+              "passengers": [
+                  {
+                      "type": "adult"
+                  }
+              ],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
-//       postData.data.cabin_class = cabinClass;
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.cabin_class = cabinClass;
 
 
 
-//       }
+      }
 
-// //                               IF NO. OF ADULTS IS 1+ INSIDE ONE WAY
+//                               IF NO. OF ADULTS IS 1+ INSIDE ONE WAY
 
-//   else {
-//         let adultsStringMore = [];
-//         for (i = 0; i < adults + 1 ; i++) {
-//           adultsStringMore.push({
-//             "type": "adult"
-//         },);
-//         };
-//         adultsStringMore = adultsStringMore.slice(0, -1);
-//         // adultsStringMore =  JSON.parse(adultsStringMore);
-//         // console.log(adultsStringMore);
+  else {
+        let adultsStringMore = [];
+        for (i = 0; i < adults + 1 ; i++) {
+          adultsStringMore.push({
+            "type": "adult"
+        },);
+        };
+        adultsStringMore = adultsStringMore.slice(0, -1);
+        // adultsStringMore =  JSON.parse(adultsStringMore);
+        // console.log(adultsStringMore);
 
         
 
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   }
-//               ],
-//               "passengers": [],
-//               "cabin_class": "business"
-//           }
-//       };
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  }
+              ],
+              "passengers": [],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
       
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers = adultsStringMore;
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers = adultsStringMore;
      
 
-//       }
-//     } 
+      }
+    } 
 
-// //                              IF NO. OF CHILDREN IS 1 INSIDE ONE WAY
+//                              IF NO. OF CHILDREN IS 1 INSIDE ONE WAY
 
-//   else if (numberOfChildren === 1) {
+  else if (numberOfChildren === 1) {
 
-//       let childAge = req.body.childAge1;
-//       // console.log(childAge);
+      let childAge = req.body.childAge1;
+      // console.log(childAge);
 
-// //                               IF NO. OF ADULTS IS 1 INSIDE ONE WAY
+//                               IF NO. OF ADULTS IS 1 INSIDE ONE WAY
 
-//       if (adults === 1) {
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   }
-//               ],
-//               "passengers": [
-//                   {
-//                       "type": "adult"
-//                   },
-//                   {
-//                       "age": ""
-//                   }
-//               ],
-//               "cabin_class": "business"
-//           }
-//       };
+      if (adults === 1) {
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  }
+              ],
+              "passengers": [
+                  {
+                      "type": "adult"
+                  },
+                  {
+                      "age": ""
+                  }
+              ],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
      
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers[1].age = childAge;
-//       // console.log(postData.data.passengers);S
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers[1].age = childAge;
+      // console.log(postData.data.passengers);S
 
     
-//       } 
+      } 
 
-// //                               IF NO. OF ADULTS IS 1+ INSIDE ONE WAY
+//                               IF NO. OF ADULTS IS 1+ INSIDE ONE WAY
 
-//   else {
+  else {
         
         
         
-//         let adultsStringMore = [];
-//         adultsStringMore.push({
-//             "age": ""
-//         });
-//         adultsStringMore[0].age = childAge;
+        let adultsStringMore = [];
+        adultsStringMore.push({
+            "age": ""
+        });
+        adultsStringMore[0].age = childAge;
 
-//         for (i = 0; i < adults ; i++) {
-//           adultsStringMore.push({
-//             "type": "adult"
-//         },);
-//         };
-//         // adultsStringMore = adultsStringMore.slice(0, -1);
-//         // adultsStringMore =  JSON.parse(adultsStringMore);
-//         // console.log(adultsStringMore);
+        for (i = 0; i < adults ; i++) {
+          adultsStringMore.push({
+            "type": "adult"
+        },);
+        };
+        // adultsStringMore = adultsStringMore.slice(0, -1);
+        // adultsStringMore =  JSON.parse(adultsStringMore);
+        // console.log(adultsStringMore);
 
         
 
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   }
-//               ],
-//               "passengers": [],
-//               "cabin_class": "business"
-//           }
-//       };
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  }
+              ],
+              "passengers": [],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
     
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers = adultsStringMore;
-//       // console.log(postData.data.passengers);
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers = adultsStringMore;
+      // console.log(postData.data.passengers);
 
     
-//       }
-//     }
+      }
+    }
 
-// //                              IF NO. OF CHILDREN IS 1+ INSIDE ONE WAY
+//                              IF NO. OF CHILDREN IS 1+ INSIDE ONE WAY
 
-//    else {
+   else {
     
-//     let age = [req.body.childAge1, req.body.childAge2, req.body.childAge3, req.body.childAge4, req.body.childAge5, req.body.childAge6, req.body.childAge7, req.body.childAge8, req.body.childAge9];
+    let age = [req.body.childAge1, req.body.childAge2, req.body.childAge3, req.body.childAge4, req.body.childAge5, req.body.childAge6, req.body.childAge7, req.body.childAge8, req.body.childAge9];
 
-// //                               IF NO. OF ADULTS IS 1 INSIDE ONE WAY
+//                               IF NO. OF ADULTS IS 1 INSIDE ONE WAY
 
-//      if (adults === 1) {
+     if (adults === 1) {
         
         
    
-//         let childrenStringMore = [];
+        let childrenStringMore = [];
    
-//         childrenStringMore.push({
-//           "type": "adult"
-//         },);
+        childrenStringMore.push({
+          "type": "adult"
+        },);
    
-//         for (i = 0; i < numberOfChildren; i++) {
+        for (i = 0; i < numberOfChildren; i++) {
    
-//           childrenStringMore.push({
-//             "age": ""
-//           },)
+          childrenStringMore.push({
+            "age": ""
+          },)
    
-//           childrenStringMore[i + 1].age = age[i];
+          childrenStringMore[i + 1].age = age[i];
    
-//         }
+        }
    
-//         // childrenStringMore = childrenStringMore.slice(0, -1);
-//         console.log(childrenStringMore);
+        // childrenStringMore = childrenStringMore.slice(0, -1);
+        console.log(childrenStringMore);
 
 
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   }
-//               ],
-//               "passengers": [],
-//               "cabin_class": "business"
-//           }
-//       };
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  }
+              ],
+              "passengers": [],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
       
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers = childrenStringMore;
-//       // console.log(postData);
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers = childrenStringMore;
+      // console.log(postData);
  
-//       }  
+      }  
 
-// //                               IF NO. OF ADULTS IS 1+ INSIDE ONE WAY
+//                               IF NO. OF ADULTS IS 1+ INSIDE ONE WAY
 
-//       else {
+      else {
         
         
       
 
-//       let childrenStringMore = [];
+      let childrenStringMore = [];
 
 
-//       for (i = 0; i < numberOfChildren; i++) {
+      for (i = 0; i < numberOfChildren; i++) {
 
-//         childrenStringMore.push({
-//           "age": ""
-//         },)
+        childrenStringMore.push({
+          "age": ""
+        },)
 
-//         childrenStringMore[i].age = age[i];
+        childrenStringMore[i].age = age[i];
 
-//       }
+      }
 
-//       // childrenStringMore = childrenStringMore.slice(0, -1);
-//       // console.log(childrenStringMore);
+      // childrenStringMore = childrenStringMore.slice(0, -1);
+      // console.log(childrenStringMore);
 
-//         let adultsStringMore = [];
+        let adultsStringMore = [];
         
 
-//         for (i = 0; i < adults ; i++) {
-//           adultsStringMore.push({
-//             "type": "adult"
-//         },);
-//         };
-//         // adultsStringMore = adultsStringMore.slice(0, -1);
-//         // adultsStringMore =  JSON.parse(adultsStringMore);
-//         // console.log(adultsStringMore);
+        for (i = 0; i < adults ; i++) {
+          adultsStringMore.push({
+            "type": "adult"
+        },);
+        };
+        // adultsStringMore = adultsStringMore.slice(0, -1);
+        // adultsStringMore =  JSON.parse(adultsStringMore);
+        // console.log(adultsStringMore);
 
-//         let concattedArrays = adultsStringMore.concat(childrenStringMore);
-//         // console.log(concattedArrays);
+        let concattedArrays = adultsStringMore.concat(childrenStringMore);
+        // console.log(concattedArrays);
 
-//         var postData = {
-//           "data": {
-//               "slices": [
-//                   {
-//                       "origin": "NYC",
-//                       "destination": "ATL",
-//                       "departure_date": "2022-09-01"
-//                   }
-//               ],
-//               "passengers": [],
-//               "cabin_class": "business"
-//           }
-//       };
+        var postData = {
+          "data": {
+              "slices": [
+                  {
+                      "origin": "NYC",
+                      "destination": "ATL",
+                      "departure_date": "2022-09-01"
+                  }
+              ],
+              "passengers": [],
+              "cabin_class": "business"
+          }
+      };
       
-//       postData.data.slices[0].origin = fromRoundTrip;
-//       postData.data.slices[0].destination = toRoundTrip;
-//       postData.data.slices[0].departure_date = departingDateRoundTrip;
+      postData.data.slices[0].origin = fromRoundTrip;
+      postData.data.slices[0].destination = toRoundTrip;
+      postData.data.slices[0].departure_date = departingDateRoundTrip;
       
-//       postData.data.cabin_class = cabinClass;
-//       postData.data.passengers = concattedArrays;
-//       // console.log(postData.data.passengers);
+      postData.data.cabin_class = cabinClass;
+      postData.data.passengers = concattedArrays;
+      // console.log(postData.data.passengers);
  
-//       }
+      }
 
-//     };
-
-
+    };
 
 
 
@@ -911,99 +921,101 @@ app.post('/login', function(req, res){
 
 
 
-// // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                               8(1.2) { Post Request HTTPS Method for Round Trip START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                               8(1.2) { Post Request HTTPS Method for Round Trip START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
        
-//   var options = {
-//     method: "POST",
-//     hostname: "api.duffel.com",
-//     path: "/air/offer_requests?return_offers=true",
-//     'headers': {
-//       'Authorization':
-//         `Bearer ${process.env.DUFFEL_TEST_TOKEN}`,
-//       'Accept': "application/json",
-//       "Content-Type": "application/json",
-//       "Duffel-Version": "beta",
-//     },
-//     maxRedirects: 20,
-//   };
-//   var req = https.request(options, function (response) {
-//     var chunks = [];
+  var options = {
+    method: "POST",
+    hostname: "api.duffel.com",
+    path: "/air/offer_requests?return_offers=true",
+    'headers': {
+      'Authorization':
+        `Bearer ${process.env.DUFFEL_TEST_TOKEN}`,
+      'Accept': "application/json",
+      "Content-Type": "application/json",
+      "Duffel-Version": "beta",
+    },
+    maxRedirects: 20,
+  };
+  var req = https.request(options, function (response) {
+    var chunks = [];
 
-//     response.on("data", function (chunk) {
-//       chunks.push(chunk);
-//     });
+    response.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
 
-//     response.on("end", function (chunk) {
-//       var body = Buffer.concat(chunks);
-//       let body1 = body.toString();
-//       let body2 = JSON.parse(body1);
-//       // console.log(body1);
-//       const offers = body2.data.offers;
-//       console.log(body2);
+    response.on("end", function (chunk) {
+      var body = Buffer.concat(chunks);
+      let body1 = body.toString();
+      let body2 = JSON.parse(body1);
+      // console.log(body1);
+      const offers = body2.data.offers;
+      console.log(body2);
 
 
-//       Identification.findOne({email: em}, function(err, foundUser){
-//         if(err){
-//           console.log(err)
-//         }else{
-//             if(foundUser){
+      Identification.findOne({email: em}, function(err, foundUser){
+        if(err){
+          console.log(err)
+        }else{
+            if(foundUser){
               
     
-//                 const signUpfName = foundUser.fname;
-//                 const signUplName = foundUser.lname;
+                const signUpfName = foundUser.fname;
+                const signUplName = foundUser.lname;
                 
     
-//                 res.render("infoOneWay", {
-//                   signUpfName: signUpfName,
-//                   signUplName: signUplName,
-//                   body2: body2,
-//                   departingDateRoundTrip: departingDateRoundTrip,
-//                   returnDateRoundTrip: returnDateRoundTrip,
-//                   offers: offers,
-//                   em: em,
-//                   returnData: 'One Way',
-//                   fromRoundTrip: fromRoundTrip,
-//                   toRoundTrip: toRoundTrip,
-//                 });
+                res.render("user/infoOneWay", {
+                  signUpfName: signUpfName,
+                  signUplName: signUplName,
+                  body2: body2,
+                  departingDateRoundTrip: departingDateRoundTrip,
+                  returnDateRoundTrip: returnDateRoundTrip,
+                  offers: offers,
+                  em: em,
+                  returnData: 'One Way',
+                  fromRoundTrip: fromRoundTrip,
+                  toRoundTrip: toRoundTrip,
+                });
                 
               
-//             }else{
-//               console.log('user not found. Impossible!');
-//             }
-//           }
-//         });
+            }else{
+              console.log('user not found. Impossible!');
+            }
+          }
+        });
 
       
-//     });
+    });
 
-//     response.on("error", function (error) {
-//       console.error(error);
-//       let error2 = error;
-//       res.redirect('error', {error2: error2});
-//     });
-//   });
-//   postData = JSON.stringify(postData);
-//   req.write(postData);
-//   req.end();
+    response.on("error", function (error) {
+      console.error(error);
+      let error2 = error;
+      res.redirect('error', {error2: error2});
+    });
+  });
+  postData = JSON.stringify(postData);
+  req.write(postData);
+  req.end();
 
-// // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                               8(1.2) { Post Request HTTPS Method for Round Trip END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                               8(1.2) { Post Request HTTPS Method for Round Trip END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
    
 
 
-//   }
+  }
 
 
-// //                                    ELSE MULTI CITY IS SELECTED    
+//                                    ELSE MULTI CITY IS SELECTED    
 
-//   else{
-//   }
+  else{
+  }
 
-//   // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                          8(1) { Post Request To Duffel (Round Trip, One Way & Multi City) END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                          8(1) { Post Request To Duffel (Round Trip, One Way & Multi City) END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   
 
 
 
-//   });
+  });
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            8. { Home Page to Make Post Requests to Recieve Data From Duffel (HTTPS Method) END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -1812,89 +1824,89 @@ req.end();
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            8. { Checkout Page Round Trip START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-// app.post('/checkoutRT', function(req, res){
+app.post('/checkoutRT', function(req, res){
 
   
-//   const idOfOffer = req.body.getIdOffers;
-//   const em2 = req.body.emailForCheckout;
-//   // https://api.duffel.com/air/seat_maps?offer_id=off_0000ANItzqILfR94neM1O4
+  const idOfOffer = req.body.getIdOffers;
+  const em2 = req.body.emailForCheckout;
+  // https://api.duffel.com/air/seat_maps?offer_id=off_0000ANItzqILfR94neM1O4
   
-//   var options = 
-//   {
-//     'method': 'GET',
-//     'hostname': 'api.duffel.com',
-//     'path': `/air/offers/${idOfOffer}`,
-//     'headers': {
-//       'Authorization':
-//         `Bearer ${process.env.DUFFEL_TEST_TOKEN}`,
-//       'Accept': "application/json",
-//       "Content-Type": "application/json",
-//       "Duffel-Version": "beta",
-//     },
-//     'maxRedirects': 20
-//   };
+  var options = 
+  {
+    'method': 'GET',
+    'hostname': 'api.duffel.com',
+    'path': `/air/offers/${idOfOffer}`,
+    'headers': {
+      'Authorization':
+        `Bearer ${process.env.DUFFEL_TEST_TOKEN}`,
+      'Accept': "application/json",
+      "Content-Type": "application/json",
+      "Duffel-Version": "beta",
+    },
+    'maxRedirects': 20
+  };
   
   
    
-//   var req = https.request(options, function (response1) {
-//     var chunks = [];
+  var req = https.request(options, function (response1) {
+    var chunks = [];
    
-//     response1.on("data", function (chunk) {
-//       chunks.push(chunk);
-//     });
+    response1.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
    
-//     response1.on("end", function (chunk) {
-//       var body = Buffer.concat(chunks);
-//       let body1 = body.toString();
-//       let body2 = JSON.parse(body1);
+    response1.on("end", function (chunk) {
+      var body = Buffer.concat(chunks);
+      let body1 = body.toString();
+      let body2 = JSON.parse(body1);
 
-//       console.log(body2);
+      console.log(body2);
 
-//       Identification.findOne({email: em2}, function(err, foundUser){
-//         if(err){
-//           console.log(err)
-//         }else{
-//             if(foundUser){
+      Identification.findOne({email: em2}, function(err, foundUser){
+        if(err){
+          console.log(err)
+        }else{
+            if(foundUser){
               
               
-//                 const signUpfName = foundUser.fname;
-//                 const signUplName = foundUser.lname;
-//               //  console.log(foundUser);
+                const signUpfName = foundUser.fname;
+                const signUplName = foundUser.lname;
+              //  console.log(foundUser);
               
               
               
                 
-//                 res.render("checkoutRoundTrip", {
-//                   signUpfName: signUpfName,
-//                   signUplName: signUplName,
-//                   idOfOffer: idOfOffer,
-//                   em2: em2,
-//                   body2: body2
-//                 });
+                res.render("user/checkoutRoundTrip", {
+                  signUpfName: signUpfName,
+                  signUplName: signUplName,
+                  idOfOffer: idOfOffer,
+                  em2: em2,
+                  body2: body2
+                });
                 
                 
-//               }else{
-//                 console.log('user not found. Impossible!');
-//               }
-//             }
-//           });
-//         });
+              }else{
+                console.log('user not found. Impossible!');
+              }
+            }
+          });
+        });
         
-//         response1.on("error", function (error) {
-//         console.error(error);
-//       });
-//     });
+        response1.on("error", function (error) {
+        console.error(error);
+      });
+    });
     
     
     
     
     
-//     req.end();
+    req.end();
     
     
     
     
-//   });
+  });
   
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            8. { Checkout Page Round Trip END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -2276,83 +2288,83 @@ req.end();
 
 
 
-// app.post('/checkoutOW', function(req, res){
+app.post('/checkoutOW', function(req, res){
 
   
-//   const idOfOffer = req.body.getIdOffers;
-//   const em2 = req.body.emailForCheckout;
+  const idOfOffer = req.body.getIdOffers;
+  const em2 = req.body.emailForCheckout;
   
   
-//   var options = {
-//     'method': 'GET',
-//     'hostname': 'api.duffel.com',
-//     'path': `/air/offers/${idOfOffer}`,
-//     'headers': {
-//       'Authorization':
-//         "Bearer duffel_test_D9M5y5YkDFZ6zasjspan-yRFsydrWA7u9oN9W2GarYB",
-//       'Accept': "application/json",
-//       "Content-Type": "application/json",
-//       "Duffel-Version": "beta",
-//     },
-//     'maxRedirects': 20
-//   };
+  var options = {
+    'method': 'GET',
+    'hostname': 'api.duffel.com',
+    'path': `/air/offers/${idOfOffer}`,
+    'headers': {
+      'Authorization':
+        "Bearer duffel_test_D9M5y5YkDFZ6zasjspan-yRFsydrWA7u9oN9W2GarYB",
+      'Accept': "application/json",
+      "Content-Type": "application/json",
+      "Duffel-Version": "beta",
+    },
+    'maxRedirects': 20
+  };
    
-//   var req = https.request(options, function (response) {
-//     var chunks = [];
+  var req = https.request(options, function (response) {
+    var chunks = [];
    
-//     response.on("data", function (chunk) {
-//       chunks.push(chunk);
-//     });
+    response.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
    
-//     response.on("end", function (chunk) {
-//       var body = Buffer.concat(chunks);
-//       let body1 = body.toString();
-//       let body2 = JSON.parse(body1);
+    response.on("end", function (chunk) {
+      var body = Buffer.concat(chunks);
+      let body1 = body.toString();
+      let body2 = JSON.parse(body1);
 
-//       console.log(body2);
+      console.log(body2);
 
-//       Identification.findOne({email: em2}, function(err, foundUser){
-//         if(err){
-//           console.log(err)
-//         }else{
-//             if(foundUser){
+      Identification.findOne({email: em2}, function(err, foundUser){
+        if(err){
+          console.log(err)
+        }else{
+            if(foundUser){
               
               
-//                 const signUpfName = foundUser.fname;
-//                 const signUplName = foundUser.lname;
-//               //  console.log(foundUser);
+                const signUpfName = foundUser.fname;
+                const signUplName = foundUser.lname;
+              //  console.log(foundUser);
               
               
               
                 
-//                 res.render("checkoutOneWay", {
-//                   signUpfName: signUpfName,
-//                   signUplName: signUplName,
-//                   idOfOffer: idOfOffer,
-//                   em2: em2,
-//                   body2: body2
-//                 });
+                res.render("user/checkoutOneWay", {
+                  signUpfName: signUpfName,
+                  signUplName: signUplName,
+                  idOfOffer: idOfOffer,
+                  em2: em2,
+                  body2: body2
+                });
                 
                 
-//               }else{
-//                 console.log('user not found. Impossible!');
-//               }
-//             }
-//           });
-//         });
+              }else{
+                console.log('user not found. Impossible!');
+              }
+            }
+          });
+        });
         
    
-//     response.on("error", function (error) {
-//       console.error(error);
-//     });
-//   });
+    response.on("error", function (error) {
+      console.error(error);
+    });
+  });
    
-//   req.end();
+  req.end();
 
 
 
 
-// });
+});
 
 
 
@@ -2474,7 +2486,7 @@ res.render('successNewsletter');
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                     10. { Logout Post Method START }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 app.post('/logout', function(req, res){
-  res.redirect('/');
+  res.redirect('/loginPage');
 });
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                     10. { Logout Post Method END }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

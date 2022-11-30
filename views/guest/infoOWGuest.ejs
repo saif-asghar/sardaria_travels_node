@@ -65,128 +65,17 @@
                                         <form class="d-flex">
                                             <div class="m-1">
                                                 <!-- Button trigger modal login -->
-                                                <button type="button" style="color: white;" class="btn btn4"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <button type="button" id="loginButton" style="color: white;" class="btn btn4">
                                                     Log In
                                                 </button>
-
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Log
-                                                                    In</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="mb-3">
-                                                                    <label for="exampleFormControlInput1"
-                                                                        class="form-label">Email
-                                                                        address</label>
-                                                                    <input type="email" class="form-control"
-                                                                        id="exampleFormControlInput1">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="inputPassword"
-                                                                        class="form-label">Password</label>
-                                                                    <div class="col-sm-12">
-                                                                        <input type="password" class="form-control"
-                                                                            id="inputPassword">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Cancel</button>
-                                                                <button type="button" class="btn btn-primary">Log
-                                                                    In</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div class="m-1">
                                                 <!-- Button trigger modal signup-->
-                                                <button type="button"
+                                                <button type="button" id="signButton"
                                                     style="background-color: #12214a; border: 1px solid white;"
-                                                    class="btn btn-primary btn5" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal2">
+                                                    class="btn btn-primary btn5">
                                                     Sign Up
                                                 </button>
-
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal2" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Sign
-                                                                    Up</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body row">
-                                                                <form class="row g-3">
-                                                                    <div class="col-md-6">
-                                                                        <label for="inputCity"
-                                                                            class="form-label">First Name</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="inputCity">
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <label for="inputCity"
-                                                                            class="form-label">Last Name</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="inputCity">
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <label for="inputEmail4"
-                                                                            class="form-label">Email</label>
-                                                                        <input type="email" class="form-control"
-                                                                            id="inputEmail4">
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <label for="inputPassword4"
-                                                                            class="form-label">Password</label>
-                                                                        <input type="password" class="form-control"
-                                                                            id="inputPassword4">
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label for="inputAddress"
-                                                                            class="form-label">Address</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="inputAddress"
-                                                                            placeholder="1234 Main St">
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label for="inputAddress2"
-                                                                            class="form-label">Address 2</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="inputAddress2"
-                                                                            placeholder="Apartment, studio, or floor">
-                                                                    </div>
-                                                                    <div class="col-md-12">
-                                                                        <label for="inputCity"
-                                                                            class="form-label">City</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="inputCity">
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Cancel</button>
-                                                                <button type="button"
-                                                                    class="btn btn-primary">Register</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -446,6 +335,7 @@
         crossorigin="anonymous"></script>
     <!-- <script src="js/app.js"></script> -->
     <script src="js/toggleUser.js"></script>
+    <script src="js/loginPGRedirect.js"></script>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
