@@ -194,7 +194,7 @@ roundTrip.addEventListener("click", changeBoxesForRoundtrip);
 
 function changeBoxesForRoundtrip() {
   // boxesSizes.removeAttribute("style");
-  multiCityBox.setAttribute("style", "display: none;");
+  // multiCityBox.setAttribute("style", "display: none;");
   otherBoxes.setAttribute("style", "display: block;");
   hotelBookingForm.setAttribute("style", "display: none;");
   radioBtn.removeAttribute("style");
@@ -207,7 +207,7 @@ oneWay.addEventListener("click", changeBoxesForOneway);
 
 function changeBoxesForOneway() {
   // boxesSizes.removeAttribute("style");
-  multiCityBox.setAttribute("style", "display: none;");
+  // multiCityBox.setAttribute("style", "display: none;");
   otherBoxes.setAttribute("style", "display: block;");
   hotelBookingForm.setAttribute("style", "display: none;");
   radioBtn.removeAttribute("style");
